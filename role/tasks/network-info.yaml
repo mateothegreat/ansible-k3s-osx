@@ -1,0 +1,8 @@
+- name: "Get network info"
+  ansible.builtin.command:
+    cmd: "multipass list --format json"
+  register: network_info
+
+- name: "Parse network info"
+  ansible.builtin.set_fact:
+    network: "{{ network_info.stdout | from_json }}"

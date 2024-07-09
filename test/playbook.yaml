@@ -1,0 +1,21 @@
+- hosts: localhost
+  roles:
+    - role: ../role
+      vars:
+        kubeconfig: true
+        nodes:
+          - name: "master"
+            type: "master"
+            cpus: 1
+            memory: 2G
+            disk: 20G
+          - name: "worker-1"
+            type: "worker"
+            cpus: 4
+            memory: 8G
+            disk: 20G
+          - name: "worker-2"
+            type: "worker"
+            cpus: 4
+            memory: 8G
+            disk: 20G

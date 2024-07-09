@@ -1,0 +1,4 @@
+prometheus_exporter_pusher:
+  gateway_server_url: "http://monitoring.com:9091"
+  user: "prometheuspusher"
+  group: "prometheuspusher"

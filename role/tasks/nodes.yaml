@@ -1,0 +1,3 @@
+- name: "Provision nodes"
+  include_tasks: "nodes-provision.yaml"
+  loop: "{{ nodes }}"

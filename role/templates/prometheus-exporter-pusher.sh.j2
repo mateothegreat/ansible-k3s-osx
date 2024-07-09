@@ -1,0 +1,6 @@
+#!/bin/bash
+
+PUSHGATEWAY_SERVER="{{ prometheus_exporter_pusher.gateway_server_url }}"
+NODE_NAME=`hostname`
+
+curl -s localhost:9100/metrics | curl --data-binary @- $PUSHGATEWAY_SERVER/metrics/job/node-exporter/instance/$NODE_NAME

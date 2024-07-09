@@ -1,0 +1,13 @@
+- name: "Install k3s on master"
+  ansible.builtin.shell:
+    cmd: "multipass exec {{ master.name }} -- sh -c 'curl -sfL https://get.k3s.io | sh -s -'"
+  register: install
+
+- name: "Get master token"
+  ansible.builtin.shell:
+    cmd: "multipass exec {{ master.name }} -- sh -c 'sudo cat /var/lib/rancher/k3s/server/node-token'"
+  register: token
+
+- name: "Set master token"
+  ansible.builtin.set_fact:
+    master_token: "{{ token.stdout }}"

@@ -1,0 +1,10 @@
+- name: "Check if instance exists: {{ item.name }}"
+  ansible.builtin.command:
+    cmd: "multipass info {{ item.name }}"
+  register: "instance"
+  ignore_errors: true
+
+- name: "Provision multipass instance: {{ item.name }}"
+  ansible.builtin.command:
+    cmd: "multipass launch --name {{ item.name }} --cpus {{ item.cpus }} --memory {{ item.memory }} --disk {{ item.disk }}"
+  when: instance.failed

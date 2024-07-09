@@ -1,0 +1,21 @@
+- name: "Provision nodes"
+  ansible.builtin.import_tasks: "nodes.yaml"
+- name: "Get network info"
+  ansible.builtin.import_tasks: "network-info.yaml"
+  tags: kube-config
+- name: "Provision master"
+  ansible.builtin.import_tasks: "master.yaml"
+  vars:
+    master: "{{ nodes | selectattr('type', 'equalto', 'master') | first }}"
+- name: "Provision workers"
+  ansible.builtin.import_tasks: "workers.yaml"
+  vars:
+    workers: "{{ nodes | selectattr('type', 'equalto', 'worker') | list }}"
+    master_ip: "{{ network.list | selectattr('name', 'equalto', 'master') | map(attribute='ipv4') | map('first') }}"
+- name: "Get kubectl config"
+  ansible.builtin.import_tasks: "kubectl-config.yaml"
+  vars:
+    master: "{{ nodes | selectattr('type', 'equalto', 'master') | first }}"
+    master_ip: "{{ network.list | selectattr('name', 'equalto', 'master') | map(attribute='ipv4') | map('first') }}"
+  when: kubeconfig | default(false) | bool
+  tags: kube-config

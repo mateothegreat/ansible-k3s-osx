@@ -1,0 +1,32 @@
+- name: "Get kubectl config"
+  ansible.builtin.shell:
+    cmd: "multipass exec {{ master.name }} -- sh -c 'sudo cat /etc/rancher/k3s/k3s.yaml'"
+  register: config
+
+- name: "Save kubectl config locally"
+  ansible.builtin.copy:
+    content: "{{ config.stdout }}"
+    dest: "/tmp/k3s.yaml"
+
+- name: "Update master ip"
+  ansible.builtin.replace:
+    path: "/tmp/k3s.yaml"
+    regexp: "127.0.0.1"
+    replace: "{{ master_ip[0] }}"
+
+- name: "Backup existing kubeconfig"
+  ansible.builtin.command:
+    cmd: "cp ~/.kube/config ~/.kube/config.bak"
+
+- name: "Merge new config to existing ~/.kube/config"
+  ansible.builtin.shell:
+    cmd: "KUBECONFIG=~/.kube/config:/tmp/k3s.yaml kubectl config view --flatten > /tmp/merged_kubeconfig"
+    executable: /bin/bash
+
+- name: "Copy /tmp/merged_kubeconfig to ~/.kube/config"
+  ansible.builtin.command:
+    cmd: "mv /tmp/merged_kubeconfig ~/.kube/config"
+
+- name: "Remove temporary kubectl config"
+  ansible.builtin.command:
+    cmd: "rm /tmp/k3s.yaml"
