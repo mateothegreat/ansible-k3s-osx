@@ -1,10 +1,8 @@
 galaxy_info:
   author: "Matthew Davis (https://matthewdavis.io)"
-  description: "Prometheus exports pusher."
+  description: "Kubernetes on OSX via multipass."
   license: "MIT"
   min_ansible_version: "2.4"
   platforms:
-    - name: "EL"
-      versions:
-        - "7"
-  galaxy_tags: ["prometheus", "monitoring", "exporter"]
+    - name: "osx"
+  galaxy_tags: ["k3s", "osx", "multipass"]

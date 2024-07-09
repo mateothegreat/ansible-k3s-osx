@@ -1,13 +1,12 @@
 namespace: "mateothegreat"
-name: "aws_vpc_create"
+name: "k3s-osx"
 version: "0.0.1"
 readme: "README.md"
 authors:
   - "Matthew Davis (https://matthewdavis.io)"
-description: "Prometheus exports pusher."
+description: "Kubernetes on OSX via multipass."
 license: ["MIT"]
-license_file: "COPYING"
-tags: ["cloud", "aws", "vpc"]
-repository: "https://github.com/mateothegreat/prometheus-exporter-pusher.git"
-homepage: "https://github.com/mateothegreat/prometheus-exporter-pusher"
-issues: "https://github.com/mateothegreat/prometheus-exporter-pusher/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc"
+tags: ["osx", "k3s", "multipass"]
+repository: "https://github.com/mateothegreat/ansible-k3s-osx.git"
+homepage: "https://github.com/mateothegreat/ansible-k3s-osx"
+issues: "https://github.com/mateothegreat/ansible-k3s-osx/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc"
